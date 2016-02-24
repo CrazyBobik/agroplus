@@ -1,0 +1,146 @@
+html,
+body {
+    height: 100%;
+}
+.clear{
+    clear: both;
+}
+.wrapper{
+    margin: 0 auto;
+    width: 1000px;
+}
+
+.main-head-top{
+    background-color: #c8dd99;
+}
+
+.head-top-wrap{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#main-nav{
+    height: 43px;
+    display: flex;
+    align-items: center;
+}
+.main-nav-elem{
+    padding: 11px;
+    display: block;
+    font-size: 18px;
+    text-align: center;
+}
+a{
+    color: #375111;
+    text-decoration: none;
+    transition: color .3s ease-in;
+}
+a:hover,
+.main-nav-elem.active{
+    color: #da251c;
+}
+.search-form{
+    display: flex;
+    background-color: #fff;
+}
+.search-field{
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    outline: none;
+}
+.search-btn{
+    cursor: pointer;
+}
+
+.head-context-wrap{
+    margin: 10px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-head-category{
+    background-color: #e0edc1;
+}
+.main-category{
+    margin: 20px auto;
+    width: 95%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.main-category-one{
+    width: 25%;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.sub-category{
+    margin: 0 auto;
+    padding-bottom: 25px;
+    width: 90%;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+.sub-category-title{
+    margin: 0 auto;
+    width: 95%;
+    font-size: 18px;
+    color: #375111;
+}
+.sub-category-one{
+    margin: 8px 5px;
+    width: 32%;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+h1{
+    text-align: center;
+    font-size: 24px;
+    color: #375111;
+}
+.seo-text{
+    margin: 10px 0;
+    text-indent: 20px;
+    font-size: 16px;
+    color: #375111;
+}
+.seo-text img{
+    float: left;
+    margin: 0 10px 10px 0;
+}
+
+.last-news{
+    padding: 10px 0 30px;
+    font-size: 18px;
+    color: #375111;
+    background-color: #e0edc1;
+}
+.last-news-head{text-align: center;}
+.last-news-context{}
+.last-news-one{
+    margin: 10px 0;
+    display: block;
+}
+.all-news-btn{
+    display: block;
+    text-align: right;
+}
+.bottom-foot{
+    padding: 7px 0;
+    color: #fff;
+    font-size: 24px;
+    text-align: center;
+    background-color: #375111;
+}
+.site-map{
+    float: right;
+    color: #fff;
+    font-size: 18px;
+}
+.site-name{
+    padding: 20px 0;
+}

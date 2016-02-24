@@ -1,0 +1,243 @@
+.ajax-form{
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    min-width: 300px;
+    padding: 10px 5px;
+}
+.row:nth-child(odd){
+    background: #DAE4E5;
+}
+.row:hover{
+    background: rgba(116, 227, 229, 0.2);
+    box-shadow: 0 0 10px -2px #97D6D6;
+}
+.row-item{
+    width: 50%;
+    min-width: 240px;
+    font-size: 21px;
+}
+
+.row-variants{
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+}
+.del-variants{
+    color: #d9d9d9;
+    cursor: pointer;
+}
+.del-variants:hover{
+    color: #f00;
+}
+
+.form-field{
+    margin: 20px 0 0;
+    border-bottom: solid 1px;
+    width: 95%;
+    float: right;
+    position: relative;
+}
+.del-form-field,
+.toggle-form-field{
+    color: #d9d9d9;
+    cursor: pointer;
+    position: absolute;
+    top: -10px;
+    right: 5px;
+    font-size: 25px;
+}
+.toggle-form-field{
+    top: -8px;
+    right: 30px;
+    font-size: 24px;
+}
+.del-form-field:hover{
+    color: #f00;
+}
+.toggle-form-field:hover{
+    color: #0f0;
+}
+.ajax-form .title{
+    border-bottom: solid 1px;
+}
+
+.fields-types{
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 21px;
+    margin: 15px 0 0;
+}
+.fields-types .title{
+    width: 100%;
+}
+.one-type{
+    margin: 5px;
+}
+
+.in{
+    font-size: 17px;
+    border: solid 1px #acacac;
+    padding: 5px;
+    width: 200px;
+    outline: none;
+}
+.in:focus,
+.in:active,
+.in:hover{
+    box-shadow: 0 5px 10px -6px #000;
+}
+.in-text{
+    width: 100%;
+    border: none;
+    border-bottom: solid 1px;
+    background: transparent;
+}
+.in-radio{
+    width: 17px;
+    height: 17px;
+    margin: 0 10px 0 0;
+}
+.in-select{}
+.in-area{
+    width: 95%;
+    max-width: 95%;
+    min-height: 150px;
+}
+.prev-img img{
+    margin: 5px 0;
+    max-width: 100%;
+    max-height: 150px;
+}
+
+.gallery .fa-close{
+    position: absolute;
+    top: 0;
+    right: -5px;
+    font-size: 30px;
+    z-index: 100;
+}
+
+.choice-img .fa-close{
+    display: none;
+}
+.gallery .choice-img .fa-close{
+    display: block;
+}
+.choice-img{
+    margin: 10px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    max-width: 100%;
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+.gallery .choice-img {
+    max-height: 100%;
+    overflow-y: auto;
+}
+.one-img{
+    position: relative;
+    margin: 10px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 110px;
+    height: 110px;
+    color: #acacac;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity .3s ease-in-out, color .3s ease-in-out;
+}
+.one-img:hover{
+    opacity: 1;
+}
+.one-img.upload{
+    font-size: 50px;
+}
+.one-img > img{
+    width: 100px;
+    max-height: 100px;
+    transition: transform .3s ease-in-out
+}
+.one-img > i{
+    transition: transform .3s ease-in-out
+}
+.one-img:hover > img,
+.one-img:hover > i{
+    transform: scale(1.2);
+}
+
+.btn{
+    width: 140px;
+    font-size: 17px;
+    color: #fff;
+    border: none;
+    padding: 6px 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background .3s ease-in-out;
+}
+.btn.btn-small{
+    width: 75px;
+}
+.btn.btn-big{
+    width: 240px;
+}
+.btn.btn-auto{
+    width: auto;
+}
+.btn-green{
+    background: #007A00;
+    border-color: #00ae00;
+}
+.btn-green:hover{
+    background: #00ae00;
+}
+
+.search-form{
+    margin: 0 -5px;
+    padding: 10px 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: #fff;
+    background-color:  rgba(34, 45, 50, 0.6);
+    opacity: 0.3;
+    transition: opacity .3s ease-in-out 2s;
+}
+.search-form:hover{
+    opacity: 1;
+    transition-delay: 0s;
+}
+.search-form-field{
+    margin: 0 10px;
+    font-size: 17px;
+    opacity: 0.5;
+    transition: opacity .3s ease-in-out;
+}
+.search-form-field:hover,
+.search-form-field:active,
+.search-form-field:focus{
+    opacity: 1;
+}
+.search-form-value{
+    padding: 7px;
+    width: 180px;
+    color: #fff;
+    background-color: #222D32;
+    border: none;
+    outline: none;
+}
+.search-form input[type="submit"]{
+    margin-top: -10px;
+}
