@@ -32,7 +32,7 @@ $(function () {
         var color = $(this).data('style');
 
         $.ajax({
-            url: '/helpers/style',
+            url: '/backend/helpers/style',
             data: {
                 color: color
             },

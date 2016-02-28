@@ -12,6 +12,9 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+        'request' => [
+            'baseUrl' => ''
+        ],
         'urlManager' => [
             'showScriptName' => false,
             'enablePrettyUrl' => true,

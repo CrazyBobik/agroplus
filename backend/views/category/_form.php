@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'parent')->dropDownList($parents, [
         'options' => [
-            '0' => ['Selected' => true]
+            $model->parent ? $model->parent : '0' => ['Selected' => true]
         ]
     ]) ?>
 
@@ -28,6 +28,12 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'seoKeywords')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'seoDescription')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'h1')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'text', [
+        'options' => ['class' => 'tinymce']
+    ])->textarea(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

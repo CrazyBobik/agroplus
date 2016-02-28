@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use common\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
@@ -75,6 +76,16 @@ class SiteController extends Controller
                 return $this->goHome();
             }
 
+        }
+
+        if(User::find()->count() == 0 && Yii::$app->request->isPost){
+            $user = new User();
+            $form = Yii::$app->request->post('LoginForm');
+            $user->username = $form['username'];
+            $user->email = $form['username'].'@agroplus.com';
+            $user->setPassword($form['password']);
+            $user->generateAuthKey();
+            $user->save();
         }
 
         $model = new LoginForm();

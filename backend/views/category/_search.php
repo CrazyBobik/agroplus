@@ -40,7 +40,7 @@ use yii\widgets\ActiveForm;
         ]
     ]) ?>
 
-<!--    --><?//= $form->field($model, 'seoTitle') ?>
+    <?php // echo $form->field($model, 'seoTitle') ?>
 
     <?php // echo $form->field($model, 'seoKeywords') ?>
 

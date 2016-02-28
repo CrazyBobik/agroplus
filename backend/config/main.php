@@ -13,6 +13,9 @@ return [
     'bootstrap' => ['log'],
     'modules' => [],
     'components' => [
+        'request' => [
+            'baseUrl' => '/backend' // данный адрес соответсвует с тем адресом который мы задали в .htaccess из общего рута нашего приложения.
+        ],
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,

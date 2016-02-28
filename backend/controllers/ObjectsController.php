@@ -2,19 +2,22 @@
 
 namespace backend\controllers;
 
-use Yii;
+use backend\widget\ObjectFields\ObjectFieldsWidget;
 use common\models\Category;
-use backend\models\CategorySearch;
+use Yii;
+use common\models\Objects;
+use backend\models\ObjectsSearch;
 use yii\filters\AccessControl;
-use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\web\Response;
 
 /**
- * CategoryController implements the CRUD actions for Category model.
+ * ObjectsController implements the CRUD actions for Objects model.
  */
-class CategoryController extends Controller
+class ObjectsController extends Controller
 {
     public function behaviors()
     {
@@ -23,7 +26,7 @@ class CategoryController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'create', 'view', 'update', 'delete'],
+                        'actions' => ['index', 'create', 'view', 'update', 'delete', 'change-fields'],
                         'allow' => true,
                         'roles' => ['@']
                     ],
@@ -39,24 +42,25 @@ class CategoryController extends Controller
     }
 
     /**
-     * Lists all Category models.
+     * Lists all Objects models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new CategorySearch();
+        $searchModel = new ObjectsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $parents = ArrayHelper::map(Category::getAllParents(), 'id', 'title');
-        $parents[''] = 'Все';
+        $categories = ArrayHelper::map(Category::find()->indexBy('id')->all(),
+            'id', 'title');
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'parents' => $parents,
+            'categories' => $categories,
         ]);
     }
 
     /**
-     * Displays a single Category model.
+     * Displays a single Objects model.
      * @param integer $id
      * @return mixed
      */
@@ -68,28 +72,37 @@ class CategoryController extends Controller
     }
 
     /**
-     * Creates a new Category model.
+     * Creates a new Objects model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Category();
+        $model = new Objects();
+        if(Yii::$app->request->isPost){
+            $scenario = Category::findOne(Yii::$app->request->post('Objects')['category']);
+            if(isset($scenario->scenarious) && !empty($scenario->scenarious)){
+                $model->setScenario($scenario->scenarious);
+            }
+        } else{
+            $model->setScenario('motoblock');
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect('index');
         } else {
-            $parents = ArrayHelper::map(Category::getAllParents(), 'id', 'title');
-            $parents[0] = 'Главная';
+            $categories = ArrayHelper::map(Category::find()->indexBy('id')->all(),
+                'id', 'title');
+
             return $this->render('create', [
                 'model' => $model,
-                'parents' => $parents,
+                'categories' => $categories,
             ]);
         }
     }
 
     /**
-     * Updates an existing Category model.
+     * Updates an existing Objects model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -99,19 +112,19 @@ class CategoryController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect('index');
         } else {
-            $parents = ArrayHelper::map(Category::getAllParents(), 'id', 'title');
-            $parents[0] = 'Главная';
+            $categories = ArrayHelper::map(Category::find()->indexBy('id')->all(),
+                'id', 'title');
             return $this->render('update', [
                 'model' => $model,
-                'parents' => $parents,
+                'categories' => $categories,
             ]);
         }
     }
 
     /**
-     * Deletes an existing Category model.
+     * Deletes an existing Objects model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -123,16 +136,35 @@ class CategoryController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionChangeFields($id){
+        if(Yii::$app->request->isAjax){
+            $this->layout = false;
+            $scenario = Category::findOne($id);
+
+            if(isset($scenario->scenarious) && !empty($scenario->scenarious)){
+                $scenario = $scenario->scenarious;
+            } else{
+                $scenario = 'default';
+            }
+
+            return ObjectFieldsWidget::widget([
+                'scenario' => $scenario
+            ]);
+        }
+
+        throw new NotFoundHttpException();
+    }
+
     /**
-     * Finds the Category model based on its primary key value.
+     * Finds the Objects model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Category the loaded model
+     * @return Objects the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Category::findOne($id)) !== null) {
+        if (($model = Objects::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

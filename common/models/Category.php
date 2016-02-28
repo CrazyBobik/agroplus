@@ -16,6 +16,9 @@ use yii\db\ActiveRecord;
  * @property string $seoKeywords
  * @property string $seoDescription
  * @property mixed childs
+ * @property string $h1
+ * @property string $text
+ * @property string $scenario
  */
 class Category extends ActiveRecord
 {
@@ -33,11 +36,13 @@ class Category extends ActiveRecord
     public function rules()
     {
         return [
-            [['parent', 'seoTitle', 'seoKeywords', 'seoDescription'], 'trim'],
-            [['parent', 'seoTitle', 'seoKeywords', 'seoDescription'], 'default'],
+            [['parent', 'seoTitle', 'seoKeywords', 'seoDescription', 'h1'], 'trim'],
+            [['parent', 'seoTitle', 'seoKeywords', 'seoDescription', 'h1'], 'default'],
             [['title', 'url'], 'required'],
             [['parent'], 'integer'],
-            [['title', 'url', 'seoTitle', 'seoKeywords', 'seoDescription'], 'string', 'max' => 255]
+            [['title', 'url', 'seoTitle', 'seoKeywords', 'seoDescription', 'h1'],
+                'string', 'max' => 255],
+            [['text'], 'string'],
         ];
     }
 
@@ -54,6 +59,8 @@ class Category extends ActiveRecord
             'seoTitle' => 'Seo Title',
             'seoKeywords' => 'Seo Keywords',
             'seoDescription' => 'Seo Description',
+            'h1' => 'H1',
+            'text' => 'Text',
         ];
     }
 

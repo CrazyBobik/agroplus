@@ -26,7 +26,7 @@ $(function () {
         var elem = $(this);
         var name = $(this).data('name');
         $.ajax({
-            url: '/file/delete',
+            url: '/backend/file/delete',
             method: 'POST',
             data: {name: name},
             success: function (result) {
@@ -38,20 +38,21 @@ $(function () {
             }
         })
     });
+    center.on('change', '#objects-category', function () {
+        var id = $(this).val();
+
+        $.ajax({
+            url: '/backend/objects/change-fields',
+            method: 'get',
+            data: {id: id},
+            success: function (html) {
+                $('.diff-fields').html(html);
+            }
+        })
+    });
 
     initTinyMCE();
 });
-
-function reloadChoiceFile(){
-    $.ajax({
-        url: '/admin/choicefile/genHTML/ajax',
-        success: function (html) {
-            $('.choice-img').fadeOut(300, function () {
-                $(this).html(html).fadeIn(300);
-            });
-        }
-    });
-}
 
 function initTinyMCE(){
     var selector = '.tinymce textarea';
@@ -72,7 +73,7 @@ function initTinyMCE(){
 
 function loadAllFiles(){
     $.ajax({
-        url: '/file/all-img',
+        url: '/backend/file/all-img',
         success: function (html) {
             $('.choice-img-container').html(html);
         }

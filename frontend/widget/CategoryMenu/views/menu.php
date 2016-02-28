@@ -10,11 +10,11 @@
  */
 ?>
 <div class="main-category">
-    <? foreach($category as $one){?>
+    <?php foreach($category as $one){?>
         <a class="main-category-one" href="/<?= $one->url ?>">
             <?= $one->title ?>
         </a>
-    <? } ?>
+    <?php } ?>
 </div>
 <!--<div class="sub-category-title">
     Купить чтото

@@ -31,19 +31,15 @@ use yii\widgets\ActiveForm;
         'options' => ['class' => 'search-form-field']
     ])->textInput(['class' => 'search-form-value']) ?>
 
-<!--    --><?//= $form->field($model, 'seoTitle') ?>
+    <?php // echo $form->field($model, 'seoTitle') ?>
 
-<!--    --><?//= $form->field($model, 'seoKeywords') ?>
+    <?php // echo $form->field($model, 'seoKeywords') ?>
 
     <?php // echo $form->field($model, 'seoDescription') ?>
 
     <?php // echo $form->field($model, 'h1') ?>
 
     <?php // echo $form->field($model, 'text') ?>
-
-<!--    --><?//= $form->field($model, 'date', [
-//        'options' => ['class' => 'search-form-field']
-//    ])->textInput(['class' => 'search-form-value']); ?>
 
     <?= $form->field($model,'date', [
         'options' => ['class' => 'search-form-field']

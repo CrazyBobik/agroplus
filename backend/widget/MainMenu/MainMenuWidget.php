@@ -18,7 +18,7 @@ class MainMenuWidget extends Widget{
 
     public function run(){
         $pages = Pages::find()->indexBy('id')->orderBy('title')->all();
-        $news = News::find()->indexBy('id')->orderBy(['date' => SORT_DESC])->all();
+        $news = News::find()->indexBy('id')->orderBy(['date' => SORT_DESC])->limit(10)->all();
         $category = Category::find()
             ->with('childs')
             ->where(['parent' => 0])

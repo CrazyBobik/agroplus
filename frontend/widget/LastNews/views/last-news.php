@@ -16,11 +16,11 @@ use yii\helpers\Url;
     <div class="wrapper">
         <div class="last-news-head">Последние статти</div>
         <div class="last-news-context">
-            <? foreach($news as $one){?>
+            <?php foreach($news as $one){?>
                 <a class="last-news-one" href="<?= Url::toRoute(['/articles/'.$one->url]) ?>">
                     <?= $one->title ?>
                 </a>
-            <? } ?>
+            <?php } ?>
 
             <a class="all-news-btn" href="<?= Url::toRoute('/articles/list') ?>">Посмотреть более поздние статти</a>
         </div>

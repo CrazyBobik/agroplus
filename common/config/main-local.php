@@ -3,9 +3,9 @@ return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=yii2db',
-            'username' => 'yii',
-            'password' => '123',
+            'dsn' => 'mysql:host=localhost;dbname=agroplus-8647_test',
+            'username' => 'agrop_test',
+            'password' => 'zn21Cq&8',
             'charset' => 'utf8',
         ],
         'mailer' => [
