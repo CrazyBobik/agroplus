@@ -11,6 +11,7 @@ use yii\helpers\Url;
  * @var $pages \common\models\Pages[]
  * @var $news \common\models\News[]
  * @var $category \common\models\Category[]
+ * @var $obj \common\models\Objects[]
  */
 ?>
 <div id="main-menu-bg"></div>
@@ -30,7 +31,7 @@ use yii\helpers\Url;
             </div>
         <?php } ?>
         <aside class="main-menu-panel">
-            <a class="panel-elem add-tree-leaf" href="<?= Url::to('/pages/create') ?>">
+            <a class="panel-elem add-tree-leaf" href="<?= Url::toRoute('/pages/create') ?>">
                 <i class="fa fa-plus"></i>
             </a>
             <div class="arr-hover">
@@ -75,7 +76,7 @@ use yii\helpers\Url;
             </div>
         <?php } ?>
         <aside class="main-menu-panel">
-            <a class="panel-elem add-tree-leaf" href="<?= Url::to('/news/create') ?>">
+            <a class="panel-elem add-tree-leaf" href="<?= Url::toRoute('/news/create') ?>">
                 <i class="fa fa-plus"></i>
             </a>
             <div class="arr-hover">
@@ -120,7 +121,7 @@ use yii\helpers\Url;
             </div>
         <?php } ?>
         <aside class="main-menu-panel">
-            <a class="panel-elem add-tree-leaf" href="<?= Url::to('/category/create') ?>">
+            <a class="panel-elem add-tree-leaf" href="<?= Url::toRoute('/category/create') ?>">
                 <i class="fa fa-plus"></i>
             </a>
             <div class="arr-hover">
@@ -131,7 +132,7 @@ use yii\helpers\Url;
     <?php if(count($category) > 0){ ?>
         <div class="sub-menu">
             <?php foreach($category as $item){?>
-                <div class="main-menu-item">
+                <div class="main-menu-item" data-id="<?= $item->id ?>">
                     <a class="main-menu-btn"
                        href="<?= Url::toRoute(['/category/update', 'id' => $item->id]) ?>">
                         <i class="fa fa-file-text-o"></i>
@@ -180,6 +181,51 @@ use yii\helpers\Url;
                         <?php } ?>
                     </div>
                 <?php } ?>
+            <?php } ?>
+        </div>
+    <?php } ?>
+
+    <!-- Объекты -->
+    <div class="main-menu-item" data-id="obj">
+        <a class="main-menu-btn" href="<?= Url::toRoute('/objects') ?>">
+            <i class="fa fa-list-alt"></i>
+            <span>Товары</span>
+        </a>
+        <?php if(count($obj) > 0){ ?>
+            <div class="toggle-sub-menu float-right">
+                <i class="fa fa-chevron-down"></i>
+            </div>
+        <?php } ?>
+        <aside class="main-menu-panel">
+            <a class="panel-elem add-tree-leaf" href="<?= Url::toRoute('/objects/create') ?>">
+                <i class="fa fa-plus"></i>
+            </a>
+            <div class="arr-hover">
+                <i class="fa fa-angle-right"></i>
+            </div>
+        </aside>
+    </div>
+    <?php if(count($obj) > 0){ ?>
+        <div class="sub-menu">
+            <?php foreach($obj as $item){?>
+                <div class="main-menu-item">
+                    <a class="main-menu-btn"
+                       href="<?= Url::toRoute(['/objects/update', 'id' => $item->id]) ?>">
+                        <i class="fa fa-file-text-o"></i>
+                        <span><?= $item->title ?></span>
+                    </a>
+                    <aside class="main-menu-panel">
+                        <a class="panel-elem del-tree-leaf"
+                           href="<?= Url::toRoute(['/objects/delete', 'id' => $item->id]) ?>"
+                           data-confirm="Вы уверены что хотите удалить этот элемент?"
+                           data-method="post">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                        <div class="arr-hover">
+                            <i class="fa fa-angle-right"></i>
+                        </div>
+                    </aside>
+                </div>
             <?php } ?>
         </div>
     <?php } ?>

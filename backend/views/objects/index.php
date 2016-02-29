@@ -31,11 +31,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'title',
-            'url:url',
+            [
+                'label'=>'url',
+                'format' => 'raw',
+                'value'=>function ($data) {
+                    return '<a href="http://test.agroplus.com.ua/'.$data->url.'">'.$data->url.'</a>';
+                },
+            ],
+//            'url:url',
 //            'seoTitle',
 //            'seoKeywords',
             // 'seoDescription',
-             'category',
+             'cat.title',
             // 'class',
             // 'power',
             // 'size',
@@ -47,7 +54,15 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'equipment',
             // 'price_usd',
             // 'price_uah',
-             'presence',
+//             'presence',
+            [
+                'label'=>'Наличие',
+                'format' => 'raw',
+                'value'=>function ($data) {
+                    $arr = \common\config\ObjectsSelects::init()->presence;
+                    return $arr[$data->presence];
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

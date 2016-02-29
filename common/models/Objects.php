@@ -15,6 +15,7 @@ use yii\db\ActiveRecord;
  * @property string $seoKeywords
  * @property string $seoDescription
  * @property integer $category
+ * @property integer $company
  * @property integer $class
  * @property integer $power
  * @property integer $size
@@ -63,6 +64,7 @@ class Objects extends ActiveRecord
         $diff = [
             'default' => [],
             'motoblock' => [
+                'company',
                 'class',
                 'power',
                 'size',
@@ -86,7 +88,7 @@ class Objects extends ActiveRecord
     {
         return [
             [['title', 'url', 'power', 'size', 'price_usd', 'price_uah'], 'required'],
-            [['category', 'class', 'power', 'size', 'fuel', 'gear', 'weight', 'price_usd', 'price_uah', 'presence'], 'integer'],
+            [['category', 'company', 'class', 'power', 'size', 'fuel', 'gear', 'weight', 'price_usd', 'price_uah', 'presence'], 'integer'],
             [['description'], 'string'],
             [['title', 'url', 'seoTitle', 'seoKeywords', 'seoDescription'], 'string', 'max' => 255],
             [['reducer', 'starter', 'equipment'], 'string', 'max' => 50],
@@ -121,5 +123,9 @@ class Objects extends ActiveRecord
             'presence' => 'Presence',
             'description' => 'Description',
         ];
+    }
+
+    public function getCat(){
+        return $this->hasOne(Category::className(), ['id' => 'category']);
     }
 }

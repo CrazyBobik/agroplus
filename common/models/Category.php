@@ -19,6 +19,7 @@ use yii\db\ActiveRecord;
  * @property string $h1
  * @property string $text
  * @property string $scenario
+ * @property string $type
  */
 class Category extends ActiveRecord
 {
@@ -36,13 +37,13 @@ class Category extends ActiveRecord
     public function rules()
     {
         return [
-            [['parent', 'seoTitle', 'seoKeywords', 'seoDescription', 'h1'], 'trim'],
-            [['parent', 'seoTitle', 'seoKeywords', 'seoDescription', 'h1'], 'default'],
+            [['parent', 'seoTitle', 'seoKeywords', 'seoDescription', 'h1', 'type'], 'trim'],
+            [['parent', 'seoTitle', 'seoKeywords', 'seoDescription', 'h1', 'type'], 'default'],
             [['title', 'url'], 'required'],
             [['parent'], 'integer'],
             [['title', 'url', 'seoTitle', 'seoKeywords', 'seoDescription', 'h1'],
                 'string', 'max' => 255],
-            [['text'], 'string'],
+            [['text', 'type'], 'string'],
         ];
     }
 

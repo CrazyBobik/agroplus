@@ -24,7 +24,6 @@ return [
                 'search' => 'site/search',
                 'articles' => 'articles/list',
                 'articles/<url:.+>' => 'articles/one',
-                '<category:.+>/<url:.+>' => 'objects/one',
                 ['class' => 'frontend\components\RouterRule'],
             ],
         ],

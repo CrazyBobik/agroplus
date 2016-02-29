@@ -12,7 +12,13 @@ use yii\widgets\ActiveForm;
 
 $form = new ActiveForm();
 ?>
-<?= $form->field($model, 'class')->dropDownList(ObjectsSelects::$class, [
+<?= $form->field($model, 'company')->dropDownList(ObjectsSelects::init()->companyMoto, [
+    'options' => [
+        $model->company => ['Selected' => true]
+    ]
+]) ?>
+
+<?= $form->field($model, 'class')->dropDownList(ObjectsSelects::init()->classMoto, [
     'options' => [
         $model->class => ['Selected' => true]
     ]
@@ -22,7 +28,7 @@ $form = new ActiveForm();
 
 <?= $form->field($model, 'size')->textInput() ?>
 
-<?= $form->field($model, 'fuel')->dropDownList(ObjectsSelects::$fuel, [
+<?= $form->field($model, 'fuel')->dropDownList(ObjectsSelects::init()->fuelMoto, [
     'options' => [
         $model->fuel => ['Selected' => true]
     ]

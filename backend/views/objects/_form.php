@@ -8,7 +8,6 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\Objects */
 /* @var $form yii\widgets\ActiveForm */
-/* @var $categories common\models\Category[] */
 ?>
 
 <div class="objects-form">
@@ -27,7 +26,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'seoDescription')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'category')->dropDownList($categories, [
+    <?= $form->field($model, 'category')->dropDownList(ObjectsSelects::init()->category, [
         'options' => [
             $model->category => ['Selected' => true]
         ]
@@ -44,7 +43,7 @@ use yii\widgets\ActiveForm;
 
     <?php //echo $form->field($model, 'price_uah')->textInput() ?>
 
-    <?= $form->field($model, 'presence')->dropDownList(ObjectsSelects::$presence, [
+    <?= $form->field($model, 'presence')->dropDownList(ObjectsSelects::init()->presence, [
         'options' => [
             $model->presence => ['Selected' => true]
         ]

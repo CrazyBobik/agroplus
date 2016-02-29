@@ -18,8 +18,8 @@ class ObjectsSearch extends Objects
     public function rules()
     {
         return [
-            [['id', 'category', 'power', 'size', 'gear', 'weight', 'price_usd', 'price_uah'], 'integer'],
-            [['title', 'url', 'seoTitle', 'seoKeywords', 'seoDescription', 'class', 'fuel', 'reducer', 'equipment', 'presence'], 'safe'],
+            [['id', 'category', 'class', 'power', 'size', 'fuel', 'gear', 'weight', 'price_usd', 'price_uah', 'presence'], 'integer'],
+            [['title', 'url', 'seoTitle', 'seoKeywords', 'seoDescription', 'reducer', 'starter', 'equipment'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class ObjectsSearch extends Objects
      */
     public function search($params)
     {
-        $query = Objects::find();
+        $query = Objects::find()->with('cat');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -58,12 +58,15 @@ class ObjectsSearch extends Objects
         $query->andFilterWhere([
             'id' => $this->id,
             'category' => $this->category,
+            'class' => $this->class,
             'power' => $this->power,
             'size' => $this->size,
+            'fuel' => $this->fuel,
             'gear' => $this->gear,
             'weight' => $this->weight,
             'price_usd' => $this->price_usd,
             'price_uah' => $this->price_uah,
+            'presence' => $this->presence,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
@@ -71,11 +74,9 @@ class ObjectsSearch extends Objects
             ->andFilterWhere(['like', 'seoTitle', $this->seoTitle])
             ->andFilterWhere(['like', 'seoKeywords', $this->seoKeywords])
             ->andFilterWhere(['like', 'seoDescription', $this->seoDescription])
-            ->andFilterWhere(['like', 'class', $this->class])
-            ->andFilterWhere(['like', 'fuel', $this->fuel])
             ->andFilterWhere(['like', 'reducer', $this->reducer])
-            ->andFilterWhere(['like', 'equipment', $this->equipment])
-            ->andFilterWhere(['like', 'presence', $this->presence]);
+            ->andFilterWhere(['like', 'starter', $this->starter])
+            ->andFilterWhere(['like', 'equipment', $this->equipment]);
 
         return $dataProvider;
     }

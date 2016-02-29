@@ -11,6 +11,7 @@ namespace backend\widget\MainMenu;
 
 use common\models\Category;
 use common\models\News;
+use common\models\Objects;
 use common\models\Pages;
 use yii\base\Widget;
 
@@ -25,11 +26,13 @@ class MainMenuWidget extends Widget{
             ->indexBy('id')
             ->orderBy(['title' => SORT_ASC])
             ->all();
+        $obj = Objects::find()->indexBy('id')->orderBy(['id' => SORT_DESC])->limit(10)->all();
 
         return $this->render('menu', [
             'pages' => $pages,
             'news' => $news,
             'category' => $category,
+            'obj' => $obj,
         ]);
     }
 }

@@ -3,6 +3,7 @@
 namespace frontend\components;
 
 use common\models\Category;
+use common\models\Objects;
 use common\models\Pages;
 use yii\web\UrlRule;
 
@@ -16,6 +17,11 @@ class RouterRule extends UrlRule{
         if ($route === '/objects/list'){
             if(isset($params['category'])){
                 return $params['category'];
+            }
+        }
+        if ($route === '/objects/one'){
+            if(isset($params['url'])){
+                return $params['url'];
             }
         }
         if($route === '/site/index'){
@@ -35,13 +41,20 @@ class RouterRule extends UrlRule{
         if(method_exists('SiteController', 'action'.ucfirst($pathInfo))){
             return 'site/'.$pathInfo;
         }
+
         $page = Pages::find()->where(['url' => $pathInfo])->one();
         if($page){
             return ['site/index', ['page' => $page]];
         }
+
         $page = Category::find()->where(['url' => $pathInfo])->one();
         if($page){
             return ['objects/list', ['category' => $pathInfo]];
+        }
+
+        $page = Objects::find()->where(['url' => $pathInfo])->one();
+        if($page){
+            return ['objects/one', ['url' => $pathInfo]];
         }
 
         return false;

@@ -1,5 +1,6 @@
 <?php
 
+use common\config\CategorySelects;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -20,6 +21,12 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'parent')->dropDownList($parents, [
         'options' => [
             $model->parent ? $model->parent : '0' => ['Selected' => true]
+        ]
+    ]) ?>
+
+    <?= $form->field($model, 'type')->dropDownList(CategorySelects::$types, [
+        'options' => [
+            $model->type ? $model->type : '' => ['Selected' => true]
         ]
     ]) ?>
 

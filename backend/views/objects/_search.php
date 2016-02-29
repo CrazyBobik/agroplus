@@ -40,7 +40,7 @@ use yii\widgets\ActiveForm;
 
     <?php  echo $form->field($model, 'category', [
         'options' => ['class' => 'search-form-field']
-    ])->dropDownList(array_merge(['' => 'Все'], $categories),
+    ])->dropDownList($categories,
         [
             'class' => 'search-form-value',
             'options' => [
@@ -72,7 +72,7 @@ use yii\widgets\ActiveForm;
 
     <?php  echo $form->field($model, 'presence', [
         'options' => ['class' => 'search-form-field']
-    ])->dropDownList(array_merge(['' => 'Все'], ObjectsSelects::$presence),
+    ])->dropDownList(array_merge(['' => 'Все'], ObjectsSelects::init()->presence),
         [
             'class' => 'search-form-value',
             'option' => [

@@ -49,8 +49,9 @@ class ObjectsController extends Controller
     {
         $searchModel = new ObjectsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $categories = ArrayHelper::map(Category::find()->indexBy('id')->all(),
+        $categories = ArrayHelper::map(Category::find()->where(['parent' => 0])->all(),
             'id', 'title');
+        $categories[''] = 'Все';
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -79,24 +80,13 @@ class ObjectsController extends Controller
     public function actionCreate()
     {
         $model = new Objects();
-        if(Yii::$app->request->isPost){
-            $scenario = Category::findOne(Yii::$app->request->post('Objects')['category']);
-            if(isset($scenario->scenarious) && !empty($scenario->scenarious)){
-                $model->setScenario($scenario->scenarious);
-            }
-        } else{
-            $model->setScenario('motoblock');
-        }
+        $this->setScenarious($model);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect('index');
         } else {
-            $categories = ArrayHelper::map(Category::find()->indexBy('id')->all(),
-                'id', 'title');
-
             return $this->render('create', [
-                'model' => $model,
-                'categories' => $categories,
+                'model' => $model
             ]);
         }
     }
@@ -110,15 +100,13 @@ class ObjectsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $this->setScenarious($model, $model->category);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect('index');
         } else {
-            $categories = ArrayHelper::map(Category::find()->indexBy('id')->all(),
-                'id', 'title');
             return $this->render('update', [
                 'model' => $model,
-                'categories' => $categories,
             ]);
         }
     }
@@ -169,5 +157,22 @@ class ObjectsController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    private function setScenarious(Objects $model, $id = null){
+        $name = 'motoblock';
+        $scenario = null;
+
+        if(Yii::$app->request->isPost){
+            $scenario = Category::findOne(Yii::$app->request->post('Objects')['category']);
+        } else if(!empty($id)){
+            $scenario = Category::findOne($id);
+        }
+
+        if(isset($scenario->scenarious) && !empty($scenario->scenarious)){
+            $name = $scenario->scenarious;
+        }
+
+        $model->setScenario($name);
     }
 }

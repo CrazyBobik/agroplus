@@ -26,11 +26,11 @@ AppAsset::register($this);
     <header id="head">
         <a href="<?= Url::toRoute('/')?>" class="logo float-left">
             <div class="logo-mini">
-                <b>A</b>4J
+                <b>A</b>Pl
             </div>
 
             <div class="logo-lg">
-                <b>Admin</b>4J
+                <b>Agro</b>Plus
             </div>
         </a>
 
