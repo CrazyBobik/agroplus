@@ -88,7 +88,8 @@ class Objects extends ActiveRecord
     {
         return [
             [['title', 'url', 'power', 'size', 'price_usd', 'price_uah'], 'required'],
-            [['category', 'company', 'class', 'power', 'size', 'fuel', 'gear', 'weight', 'price_usd', 'price_uah', 'presence'], 'integer'],
+            [['category', 'company', 'class', 'size', 'fuel', 'gear', 'weight', 'price_usd', 'price_uah', 'presence'], 'integer'],
+            [['power'], 'double'],
             [['description'], 'string'],
             [['title', 'url', 'seoTitle', 'seoKeywords', 'seoDescription'], 'string', 'max' => 255],
             [['reducer', 'starter', 'equipment'], 'string', 'max' => 50],
@@ -103,29 +104,34 @@ class Objects extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
+            'title' => 'Название',
             'url' => 'Url',
             'seoTitle' => 'Seo Title',
             'seoKeywords' => 'Seo Keywords',
             'seoDescription' => 'Seo Description',
-            'category' => 'Category',
-            'class' => 'Class',
-            'power' => 'Power',
-            'size' => 'Size',
-            'fuel' => 'Fuel',
-            'gear' => 'Gear',
-            'weight' => 'Weight',
-            'reducer' => 'Reducer',
-            'starter' => 'Starter',
-            'equipment' => 'Equipment',
-            'price_usd' => 'Price Usd',
-            'price_uah' => 'Price Uah',
-            'presence' => 'Presence',
-            'description' => 'Description',
+            'category' => 'Категория',
+            'class' => 'Класс',
+            'power' => 'Мощность л/с',
+            'size' => 'Рабочий обьем см/куб',
+            'fuel' => 'Тип топлива',
+            'gear' => 'Передачи',
+            'weight' => 'Масса кг',
+            'reducer' => 'Редуктор',
+            'starter' => 'Стартер',
+            'equipment' => 'Комплектация',
+            'price_usd' => 'Цена Usd',
+            'price_uah' => 'Цена Uah',
+            'presence' => 'Наличие',
+            'description' => 'Описание',
+            'imgs' => 'Картинки',
         ];
     }
 
     public function getCat(){
         return $this->hasOne(Category::className(), ['id' => 'category']);
+    }
+
+    public function getImgs(){
+        return $this->hasMany(ObjectsImg::className(), ['objId' => 'id']);
     }
 }

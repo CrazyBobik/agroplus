@@ -13,12 +13,16 @@ use backend\widget\FormUpload\FormUploadWidget;
 ?>
 <div class="choice-img">
     <?php foreach($all as $item){
-        $name = preg_replace('/.*\//ui', '', $item); ?>
+        $name = preg_replace('/.*\//ui', '', $item);
+        if(strpos($name, '.jpg') ||
+            strpos($name, '.jpeg') ||
+            strpos($name, '.png') ||
+            strpos($name, '.gif')){?>
         <div class="one-img" title="Выбрать этот файл">
             <i class="fa fa-close del del-img" data-name="<?= $name ?>"></i>
-            <img class="choice" src="http://yii/upload/<?= $name ?>" alt="">
+            <img class="choice" src="http://test.agroplus.com.ua/upload/<?= $name ?>" alt="">
         </div>
-    <?php } ?>
+    <?php }} ?>
     <div class="one-img upload" title="Загрузить новый файл">
         <i class="fa fa-camera"></i>
     </div>

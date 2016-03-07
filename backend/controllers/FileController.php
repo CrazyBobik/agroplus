@@ -48,8 +48,8 @@ class FileController extends Controller{
     }
 
     public function actionGalleryImg(){
-        $allFiles = glob('../../frontend/web/upload/*');
-        return $this->render('gallery', ['all' => $allFiles]);
+//        $allFiles = glob('../../frontend/web/upload/*');
+        return $this->render('gallery');
     }
 
     public function actionUpload(){

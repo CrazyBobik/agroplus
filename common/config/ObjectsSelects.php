@@ -38,7 +38,8 @@ class ObjectsSelects{
             'id', 'title');
         $this->presence = [
             0 => 'Нет',
-            1 => 'Есть'
+            1 => 'Есть',
+            2 => 'Под заказ'
         ];
     }
 

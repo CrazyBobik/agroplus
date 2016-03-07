@@ -4,15 +4,19 @@ namespace backend\controllers;
 
 use backend\widget\ObjectFields\ObjectFieldsWidget;
 use common\models\Category;
+use common\models\ObjectsImg;
+use Imagine\Image\Box;
 use Yii;
 use common\models\Objects;
 use backend\models\ObjectsSearch;
 use yii\filters\AccessControl;
+use yii\imagine\Image;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
+use yii\web\UploadedFile;
 
 /**
  * ObjectsController implements the CRUD actions for Objects model.
@@ -26,7 +30,15 @@ class ObjectsController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'create', 'view', 'update', 'delete', 'change-fields'],
+                        'actions' => [
+                            'index',
+                            'create',
+                            'view',
+                            'update',
+                            'delete',
+                            'change-fields',
+                            'delete-file',
+                        ],
                         'allow' => true,
                         'roles' => ['@']
                     ],
@@ -36,6 +48,7 @@ class ObjectsController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                    'delete-file' => ['post'],
                 ],
             ],
         ];
@@ -80,10 +93,10 @@ class ObjectsController extends Controller
     public function actionCreate()
     {
         $model = new Objects();
-        $this->setScenarious($model);
+        $this->setScenarious($model, 1);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect('index');
+            return $this->redirect('update?id='.Yii::$app->db->lastInsertID);
         } else {
             return $this->render('create', [
                 'model' => $model
@@ -97,18 +110,55 @@ class ObjectsController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id){
         $model = $this->findModel($id);
         $this->setScenarious($model, $model->category);
+        $this->upload($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if($model->load(Yii::$app->request->post()) && $model->save()){
             return $this->redirect('index');
         } else {
             return $this->render('update', [
                 'model' => $model,
             ]);
         }
+    }
+
+    public function upload($id){
+        if(Yii::$app->request->isPost){
+            $model = new ObjectsImg();
+            $model->setScenario('upload');
+
+            $model->imgs = UploadedFile::getInstances($model, 'imgs');
+
+            if($model->imgs && $model->validate()){
+                if(!file_exists('../../frontend/web/upload/'.$id)){
+                    mkdir('../../frontend/web/upload/'.$id);
+                }
+                foreach($model->imgs as $file){
+                    $name = uniqid().'.'.$file->extension;
+                    $file->saveAs('../../frontend/web/upload/'.$id.'/'.$name);
+                    Image::frame('../../frontend/web/upload/'.$id.'/'.$name)
+                         ->resize(new Box(190, 140))
+                         ->save('../../frontend/web/upload/'.$id.'/t_'.$name);
+
+                    $objImg = new ObjectsImg();
+                    $objImg->attributes = [
+                        'objId' => $id,
+                        'img' => $name
+                    ];
+                    $objImg->save();
+                }
+            }
+        }
+    }
+
+    public function actionDeleteFile(){
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $id = Yii::$app->request->post('id');
+        $name = Yii::$app->request->post('name');
+
+        return ObjectsImg::deleteImg($id, $name);
     }
 
     /**
@@ -120,6 +170,7 @@ class ObjectsController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+        ObjectsImg::deleteAllImg($id);
 
         return $this->redirect(['index']);
     }
@@ -160,10 +211,11 @@ class ObjectsController extends Controller
     }
 
     private function setScenarious(Objects $model, $id = null){
-        $name = 'motoblock';
+        $name = 'default';
         $scenario = null;
 
         if(Yii::$app->request->isPost){
+            var_dump(Yii::$app->request->post('Objects')['category']);
             $scenario = Category::findOne(Yii::$app->request->post('Objects')['category']);
         } else if(!empty($id)){
             $scenario = Category::findOne($id);

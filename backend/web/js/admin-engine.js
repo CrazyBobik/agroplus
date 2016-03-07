@@ -38,6 +38,26 @@ $(function () {
             }
         })
     });
+    center.on('click', '.del-obj-img', function () {
+        var elem = $(this);
+        var id = $(this).parent().data('id');
+        var name = $(this).parent().data('name');
+        $.ajax({
+            url: '/backend/objects/delete-file',
+            method: 'POST',
+            data: {
+                id: id,
+                name: name
+            },
+            success: function (result) {
+                if(result == true) {
+                    elem.parent().slideUp(300, function () {
+                        $(this).remove();
+                    });
+                }
+            }
+        })
+    });
     center.on('change', '#objects-category', function () {
         var id = $(this).val();
 

@@ -7,7 +7,7 @@
  */
 
 ?>
-<form class="ajax-form" action="/file/upload" method="post" enctype="multipart/form-data"
+<form class="ajax-form" action="/backend/file/upload" method="post" enctype="multipart/form-data"
       style="display: none;">
     <input id="upload-new-file" type="file" name="FileModel[file]" style="display: none"
            onchange="$(this).closest('form').submit();">

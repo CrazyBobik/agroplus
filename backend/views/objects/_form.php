@@ -8,12 +8,14 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\Objects */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $isUpdate bool */
 ?>
 
 <div class="objects-form">
 
     <?php $form = ActiveForm::begin([
         'enableClientValidation' => false,
+        'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
@@ -52,6 +54,26 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'description', [
         'options' => ['class' => 'tinymce']
     ])->textarea(['maxlength' => true]) ?>
+
+    <?php if($isUpdate){ ?>
+        <div id="imgs" class="form-group field-objects-presence">
+            <label class="control-label" for="objects-imgs">Картинки</label>
+
+            <input id="objects-imgs" class="form-control" type="file" name="ObjectsImg[imgs][]"
+                   multiple>
+        </div>
+
+        <div class="obj-imgs">
+            <?php foreach($model->imgs as $img){ ?>
+                <div class="one-obj-img"
+                     data-id="<?= $model->id ?>"
+                     data-name="<?= $img->img ?>">
+                    <i class="fa fa-close del del-obj-img"></i>
+                    <img class="choice" src="http://test.agroplus.com.ua/upload/<?= $model->id ?>/t_<?= $img->img ?>" alt="">
+                </div>
+            <?php } ?>
+        </div>
+    <?php } ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

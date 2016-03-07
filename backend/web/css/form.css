@@ -116,7 +116,8 @@
     max-height: 150px;
 }
 
-.gallery .fa-close{
+.gallery .fa-close,
+.obj-imgs .fa-close{
     position: absolute;
     top: 0;
     right: -5px;
@@ -130,7 +131,8 @@
 .gallery .choice-img .fa-close{
     display: block;
 }
-.choice-img{
+.choice-img,
+.obj-imgs{
     margin: 10px 0 0;
     display: flex;
     flex-wrap: wrap;
@@ -139,12 +141,17 @@
     max-height: 300px;
     overflow-y: scroll;
 }
+.obj-imgs{
+    max-height: 1000px;
+    overflow-y: hidden;
+}
 
 .gallery .choice-img {
     max-height: 100%;
     overflow-y: auto;
 }
-.one-img{
+.one-img,
+.one-obj-img{
     position: relative;
     margin: 10px;
     padding: 5px;
@@ -158,22 +165,27 @@
     opacity: 0.6;
     transition: opacity .3s ease-in-out, color .3s ease-in-out;
 }
-.one-img:hover{
+.one-img:hover,
+.one-obj-img:hover{
     opacity: 1;
 }
 .one-img.upload{
     font-size: 50px;
 }
-.one-img > img{
+.one-img > img,
+.one-obj-img > img{
     width: 100px;
     max-height: 100px;
     transition: transform .3s ease-in-out
 }
-.one-img > i{
+.one-img > i,
+.one-obj-img > i{
     transition: transform .3s ease-in-out
 }
 .one-img:hover > img,
-.one-img:hover > i{
+.one-obj-img:hover > img,
+.one-img:hover > i,
+.one-obj-img:hover > i{
     transform: scale(1.2);
 }
 
